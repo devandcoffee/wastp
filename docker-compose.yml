@@ -1,0 +1,22 @@
+version: "2"
+
+services:
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - /data/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_USER: admin
+      POSTGRES_DB: stapidb
+      POSTGRES_PASSWORD: admin
+  web:
+    build: .
+    volumes:
+      - ./:/opt/data
+    ports:
+      - 8000:80
+    depends_on:
+      - postgres
