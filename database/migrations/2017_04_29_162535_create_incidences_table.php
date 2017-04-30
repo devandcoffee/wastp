@@ -16,6 +16,7 @@ class CreateIncidencesTable extends Migration
         Schema::create('incidences', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('incidence_type_id');
+            $table->integer('game_id');
             $table->integer('player_id');
             $table->string('description');
             $table->timestamps();
