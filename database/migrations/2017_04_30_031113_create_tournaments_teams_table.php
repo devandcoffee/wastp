@@ -17,13 +17,13 @@ class CreateTournamentsTeamsTable extends Migration
             $table->increments('id');
             $table->integer('tournament_id');
             $table->integer('team_id');
-            $table->integer('points');
-            $table->integer('played');
-            $table->integer('won');
-            $table->integer('drawn');
-            $table->integer('lost');
-            $table->integer('gf');
-            $table->integer('ga');
+            $table->integer('points')->default(0);
+            $table->integer('played')->default(0);
+            $table->integer('won')->default(0);
+            $table->integer('drawn')->default(0);
+            $table->integer('lost')->default(0);
+            $table->integer('gf')->default(0);
+            $table->integer('ga')->default(0);
             $table->timestamps();
         });
     }

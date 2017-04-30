@@ -16,8 +16,8 @@ class CreateFixturesTable extends Migration
         Schema::create('fixtures', function (Blueprint $table) {
             $table->increments('id');
             $table->string('tourmanent_id');
-            $table->timestamp('start_date');
-            $table->timestamp('end_date');
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
             $table->timestamps();
         });
     }

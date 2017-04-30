@@ -17,9 +17,9 @@ class CreateTournamentsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('name');
-            $table->timestamp('start_date');
-            $table->integer('amount_teams');
-            $table->string('description');
+            $table->timestamp('start_date')->nullable();
+            $table->integer('amount_teams')->default(10);
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
