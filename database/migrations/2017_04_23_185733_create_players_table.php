@@ -20,7 +20,7 @@ class CreatePlayersTable extends Migration
             $table->timestamp('birthdate');
             $table->string('slug');
             $table->string('avatar');
-            $table->string('gender');
+            $table->enum('gender', ['male', 'female']);
             $table->string('location')->nullable();
             $table->string('about')->nullable();
             $table->string('indentiy_id', 20);
