@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTournamentsTeamsTable extends Migration
+class CreateTeamTournamentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateTournamentsTeamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tournaments_teams', function (Blueprint $table) {
+        Schema::create('team_tournament', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('tournament_id');
             $table->integer('team_id');
+            $table->integer('tournament_id');
             $table->integer('points')->default(0);
             $table->integer('played')->default(0);
             $table->integer('won')->default(0);
@@ -35,6 +35,6 @@ class CreateTournamentsTeamsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tournaments_teams');
+        Schema::dropIfExists('team_tournament');
     }
 }
