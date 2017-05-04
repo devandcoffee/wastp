@@ -18,6 +18,11 @@ class CreatePlayersTable extends Migration
             $table->string('name');
             $table->string('lastname');
             $table->timestamp('birthdate');
+            $table->string('slug');
+            $table->string('avatar');
+            $table->string('gender');
+            $table->string('location')->nullable();
+            $table->string('about')->nullable();
             $table->string('indentiy_id', 20);
             $table->timestamps();
         });

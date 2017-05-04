@@ -18,7 +18,7 @@ class CreateIncidencesTable extends Migration
             $table->integer('incidence_type_id');
             $table->integer('game_id');
             $table->integer('player_id');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

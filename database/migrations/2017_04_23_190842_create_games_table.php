@@ -19,8 +19,9 @@ class CreateGamesTable extends Migration
             $table->integer('local_team_id');
             $table->integer('visitor_team_id');
             $table->timestamp('date');
-            $table->integer('local_score');
-            $table->integer('visitor_score');
+            $table->integer('local_score')->default(0);
+            $table->integer('visitor_score')->default(0);
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }
