@@ -21,6 +21,7 @@ class CreateGamesTable extends Migration
             $table->timestamp('date');
             $table->integer('local_score')->default(0);
             $table->integer('visitor_score')->default(0);
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }
