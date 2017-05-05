@@ -18,12 +18,12 @@ class Game extends Model
 
     public function local()
     {
-        return $this->belongsTo('App\Team', 'local_team_id');
+        return $this->hasOne('App\Team', 'local_team_id');
     }
 
     public function visitor()
     {
-        return $this->belongsTo('App\Team', 'visitor_team_id');
+        return $this->hasOne('App\Team', 'visitor_team_id');
     }
 
     public function fixture()
