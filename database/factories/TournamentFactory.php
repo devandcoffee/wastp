@@ -6,7 +6,7 @@ $factory->define(App\Tournament::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->company,
         'start_date' => $faker->date('Y-m-d'),
-        'amount_teams' => '20',
+        'amount_teams' => 20,
         'description' => $faker->paragraph(2),
     ];
 });
