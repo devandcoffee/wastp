@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Tournament;
 use Illuminate\Http\Request;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+use Spatie\Fractalistic\Fractal;
+use App\Transformers\TournamentTransformer;
 
 class TournamentController extends Controller
 {
@@ -12,19 +15,16 @@ class TournamentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $perPage = ($request->perPage) ? $request->perPage : 15;
+        $tournaments = Tournament::orderBy('start_date', 'desc')->paginate($perPage);
+        return fractal()
+            ->collection($tournaments->getCollection(), null, 'Tournaments')
+            ->transformWith(new TournamentTransformer())
+            ->paginateWith(new IlluminatePaginatorAdapter($tournaments))
+            ->respond()
+        ;
     }
 
     /**
@@ -46,7 +46,12 @@ class TournamentController extends Controller
      */
     public function show(Tournament $tournament)
     {
-        //
+        $tournaments = collect([$tournament]);
+        return fractal()
+            ->collection($tournaments, null, 'Tournaments')
+            ->transformWith(new TournamentTransformer())
+            ->respond()
+        ;
     }
 
     /**
