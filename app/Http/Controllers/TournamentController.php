@@ -15,9 +15,10 @@ class TournamentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tournaments = Tournament::orderBy('name', 'desc')->latest()->paginate();
+        $perPage = ($request->perPage) ? $request->perPage : 15;
+        $tournaments = Tournament::orderBy('start_date', 'desc')->paginate($perPage);
         return fractal()
             ->collection($tournaments->getCollection(), null, 'Tournaments')
             ->transformWith(new TournamentTransformer())
@@ -45,7 +46,12 @@ class TournamentController extends Controller
      */
     public function show(Tournament $tournament)
     {
-        //
+        $tournaments = collect([$tournament]);
+        return fractal()
+            ->collection($tournaments, null, 'Tournaments')
+            ->transformWith(new TournamentTransformer())
+            ->respond()
+        ;
     }
 
     /**
