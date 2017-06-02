@@ -1,0 +1,9 @@
+#login-form > .card-header h3 {
+  font-size: x-large;
+  text-align: center;
+  text-transform: none;
+}
+
+#login-form > .login-form-button {
+  width: 100%;
+}

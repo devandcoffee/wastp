@@ -12,11 +12,20 @@ services:
       POSTGRES_USER: admin
       POSTGRES_DB: stapidb
       POSTGRES_PASSWORD: admin
-  web:
-    build: .
+  api:
+    build: ./stapi
     volumes:
-      - ./:/opt/data
+      - ./stapi:/opt/data
     ports:
       - 8000:80
     depends_on:
       - postgres
+  app:
+    build:
+      context: ./stweb
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./stweb:/usr/src/app
+    depends_on:
+      - api
