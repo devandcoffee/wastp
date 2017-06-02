@@ -1,0 +1,55 @@
+#components-layout-demo-fixed-sider .logo {
+  height: 32px;
+  background: #333;
+  border-radius: 6px;
+  margin: 16px;
+}
+
+.ant-layout-sider {
+    transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+    position: relative;
+    background: none;
+    min-width: 0;
+}
+
+#layout-right .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 16px;
+  cursor: pointer;
+  transition: color .3s;
+}
+
+#layout-right .trigger:hover {
+  color: #108ee9;
+}
+
+#layout-right .logo {
+  height: 32px;
+  background: #333;
+  border-radius: 6px;
+  margin: 16px;
+}
+
+#layout-right .ant-layout-sider-collapsed .anticon {
+  font-size: 28px;
+}
+
+#layout-right .ant-layout-sider-collapsed .nav-text {
+  display: none;
+}
+
+#layout-right .settings {
+  float: right;
+  margin-top: 2px;
+  margin-right: 10px;
+}
+
+.st-link {
+    color:white;
+    background: transparent;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+    transition: color .3s ease;
+}
