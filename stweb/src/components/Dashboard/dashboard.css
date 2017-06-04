@@ -8,7 +8,6 @@
 .ant-layout-sider {
     transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
     position: relative;
-    background: none;
     min-width: 0;
 }
 
@@ -43,13 +42,4 @@
   float: right;
   margin-top: 2px;
   margin-right: 10px;
-}
-
-.st-link {
-    color:white;
-    background: transparent;
-    text-decoration: none;
-    outline: none;
-    cursor: pointer;
-    transition: color .3s ease;
 }
