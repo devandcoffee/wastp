@@ -18,10 +18,10 @@ class Login extends Component {
     return (
       <Row style={{ paddingTop: 100 }}>
         <Col
-          xs={{ span: 20, offset: 2 }}
-          sm={{ span: 12, offset: 6 }}
-          md={{ span: 8, offset: 8 }}
-          xl={{ span: 6, offset: 10 }}
+          xs={{ span: 8, offset: 7 }}
+          sm={{ span: 8, offset: 8 }}
+          md={{ span: 8, offset: 9 }}
+          xl={{ span: 8, offset: 10 }}
         >
           <Card title="Login" style={{ width: 300 }}>
             <Form id="login-form" onSubmit={this.handleSubmit} className="login-form">

@@ -41,7 +41,7 @@ class Dashboard extends React.Component {
             collapsed={this.state.collapsed}
           >
             <div className="logo" />
-            <SidebarMenu linkTo={this.linkTo}/>
+            <SidebarMenu linkTo={this.linkTo} />
           </Sider>
           <Layout id="layout-right">
             <Header style={{ background: '#fff', padding: 0 }}>
@@ -56,7 +56,7 @@ class Dashboard extends React.Component {
             </Header>
             <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
               <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
-                <Contents page={this.state.page}/>
+                <Contents page={this.state.page} />
               </div>
             </Content>
             <Footer style={{ textAlign: 'center' }}>
