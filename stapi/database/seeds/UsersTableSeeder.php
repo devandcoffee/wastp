@@ -15,7 +15,9 @@ class UsersTableSeeder extends Seeder
             ->create()
             ->each(function($user) {
                 $tournaments = factory(App\Tournament::class, 5)->make();
+                $teams = factory(App\Team::class, 5)->make();
                 $user->tournaments()->saveMany($tournaments);
+                $user->teams()->saveMany($teams);
             });
     }
 }

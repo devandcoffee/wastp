@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Team;
 use Illuminate\Http\Request;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+use Spatie\Fractalistic\Fractal;
+use App\Transformers\TeamTransformer;
 
 class TeamController extends Controller
 {
@@ -12,19 +15,15 @@ class TeamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $perPage = ($request->perPage) ? $request->perPage : 10;
+        $teams = Team::orderBy('name', 'desc')->paginate($perPage);
+        return fractal()
+            ->collection($teams->getCollection(), null, 'Teams')
+            ->transformWith(new TeamTransformer())
+            ->paginateWith(new IlluminatePaginatorAdapter($teams))
+            ->respond();
     }
 
     /**

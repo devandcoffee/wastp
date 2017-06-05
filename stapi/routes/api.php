@@ -21,5 +21,7 @@ Route::group(
     ['prefix' => 'v1'],
     function () {
         Route::resource('tournament', 'TournamentController');
+
+        Route::resource('teams', 'TeamController');
     }
 );
