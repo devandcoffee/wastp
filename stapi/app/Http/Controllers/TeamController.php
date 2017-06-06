@@ -45,7 +45,10 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
-        //
+        return fractal()
+            ->item($team, null, 'Teams')
+            ->transformWith(new TeamTransformer())
+            ->respond();
     }
 
     /**
