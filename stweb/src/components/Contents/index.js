@@ -1,12 +1,12 @@
 import React from 'react';
-import { NotFound, Home, Torneos } from '../index';
+import { NotFound, Home, Tournaments } from '../index';
 import { Route, Switch } from 'react-router';
 
 const Contents = () => {
   return (
     <Switch>
-      <Route exact path="/dashboard/home" component={Home} />
-      <Route exact path="/dashboard/gestion/torneos" component={Torneos} />
+      <Route exact path="/" component={Home} />Torneos
+      <Route exact path="/tournaments" component={Tournaments} />
       <Route component={NotFound} />
     </Switch>
   )
