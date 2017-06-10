@@ -19,9 +19,9 @@ class SidebarMenu extends React.Component {
       >
         <Menu.Item key="/">{<span><Icon type="home" />Home</span>}</Menu.Item>
         <SubMenu key="managments" title={<span><Icon type="solution" />Managment</span>}>
-          <Menu.Item key="/tournaments">Torneos</Menu.Item>
-          <Menu.Item key="/teams">Equipos</Menu.Item>
-          <Menu.Item key="/players">Jugadores</Menu.Item>
+          <Menu.Item key="/tournaments">Tournaments</Menu.Item>
+          <Menu.Item key="/teams">Teams</Menu.Item>
+          <Menu.Item key="/players">Players</Menu.Item>
         </SubMenu>
         <Menu.Item key="/statistics">{<span><Icon type="area-chart" />Statistics</span>}</Menu.Item>
       </Menu>

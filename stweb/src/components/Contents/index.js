@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router';
 const Contents = () => {
   return (
     <Switch>
-      <Route exact path="/" component={Home} />Torneos
+      <Route exact path="/" component={Home} />
       <Route exact path="/tournaments" component={Tournaments} />
       <Route component={NotFound} />
     </Switch>
