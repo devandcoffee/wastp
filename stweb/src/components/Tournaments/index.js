@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-class Torneos extends Component {
+class Tournaments extends Component {
   render() {
     return (
       <div>
-        Torneos Component
+        Tournaments
       </div>
     );
   }
 }
 
-export default Torneos;
+export default Tournaments;

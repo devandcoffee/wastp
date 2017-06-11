@@ -2,8 +2,6 @@ import React from 'react';
 import { Menu, Icon } from 'antd';
 const { SubMenu } = Menu;
 
-
-
 class SidebarMenu extends React.Component {
   linkTo = ({ key }) => {
     this.props.linkTo(key);
@@ -19,17 +17,13 @@ class SidebarMenu extends React.Component {
         defaultOpenKeys={['sub0']}
         style={{ height: '100%' }}
       >
-        <Menu.Item key="/dashboard/home">{<span><Icon type="home" />Home</span>}</Menu.Item>
-        <SubMenu key="sub1" title={<span><Icon type="solution" />Gestión</span>}>
-          <Menu.Item key="/dashboard/gestion/torneos">Torneos</Menu.Item>
-          <Menu.Item key="/dashboard/gestion/equipos">Equipos</Menu.Item>
-          <Menu.Item key="/dashboard/gestion/jugadores">Jugadores</Menu.Item>
+        <Menu.Item key="/">{<span><Icon type="home" />Home</span>}</Menu.Item>
+        <SubMenu key="managments" title={<span><Icon type="solution" />Managment</span>}>
+          <Menu.Item key="/tournaments">Tournaments</Menu.Item>
+          <Menu.Item key="/teams">Teams</Menu.Item>
+          <Menu.Item key="/players">Players</Menu.Item>
         </SubMenu>
-        <SubMenu key="sub2" title={<span><Icon type="area-chart" />Estadísticas</span>}>
-          <Menu.Item key="/dashboard/estadisticas/torneos">Torneos</Menu.Item>
-          <Menu.Item key="/dashboard/estadisticas/equipos">Equipos</Menu.Item>
-          <Menu.Item key="/dashboard/estadisticas/jugadores">Jugadores</Menu.Item>
-        </SubMenu>
+        <Menu.Item key="/statistics">{<span><Icon type="area-chart" />Statistics</span>}</Menu.Item>
       </Menu>
     );
   }
