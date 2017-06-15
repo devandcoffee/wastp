@@ -21,7 +21,7 @@ class UserController extends Controller
         $perPage = ($request->perPage) ? $request->perPage : 10;
         $users = User::orderBy('username', 'desc')->paginate($perPage);
         return fractal()
-            ->collection($users->getCollection(), null, 'Teams')
+            ->collection($users->getCollection(), null, 'Users')
             ->transformWith(new UserTransformer())
             ->paginateWith(new IlluminatePaginatorAdapter($users))
             ->respond();
