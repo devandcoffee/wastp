@@ -54,9 +54,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        $users = collect([$user]);
+        return fractal()
+            ->collection($users, null, 'Users')
+            ->transformWith(new UserTransformer())
+            ->respond();
     }
 
     /**
