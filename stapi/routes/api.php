@@ -22,7 +22,7 @@ Route::group(
     function () {
         Route::resource('users', 'UserController');
 
-        Route::resource('tournament', 'TournamentController');
+        Route::resource('tournaments', 'TournamentController');
 
         Route::resource('teams', 'TeamController');
     }
