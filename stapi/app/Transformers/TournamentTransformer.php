@@ -15,7 +15,8 @@ class TournamentTransformer extends TransformerAbstract
      * @var array
      */
     protected $availableIncludes = [
-        'user'
+        'user',
+        'teams'
     ];
 
     /**
@@ -46,5 +47,18 @@ class TournamentTransformer extends TransformerAbstract
         $user = $tournament->user;
 
         return $this->item($user, new UserTransformer, 'User');
+    }
+
+    /**
+     * Include Teams
+     *
+     * @param  $tournament
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeTeams(Tournament $tournament)
+    {
+        $teams = $tournament->teams;
+
+        return $this->collection($teams, new TeamTransformer, 'Teams');
     }
 }

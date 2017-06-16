@@ -21,7 +21,7 @@ class TournamentController extends Controller
         $tournaments = Tournament::orderBy('start_date', 'desc')->paginate($perPage);
         return fractal()
             ->collection($tournaments->getCollection(), null, 'Tournaments')
-            ->parseIncludes(['user'])
+            ->parseIncludes(['user', 'teams'])
             ->transformWith(new TournamentTransformer())
             ->paginateWith(new IlluminatePaginatorAdapter($tournaments))
             ->respond()

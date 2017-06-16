@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tournament extends Model
 {
-    public $with = ['user'];
+    public $with = ['user', 'teams'];
 
     protected $fillable = [
         'user_id',
