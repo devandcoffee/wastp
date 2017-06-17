@@ -18,7 +18,7 @@ class TournamentsAdd extends Component {
     return (
       <div>
         <Row>
-          <Button onClick={this.props.backToList}> Back to List </Button>
+          <Button onClick={this.props.backToList} icon="arrow-left"> Back to List </Button>
         </Row>
         <Row>
           <Card title="New Tournament" bordered={false} style={{ width: '100%', marginTop: '25px' }}>
