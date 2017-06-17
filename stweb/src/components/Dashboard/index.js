@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import { Layout, Icon } from 'antd';
 import Contents from '../Contents';
 import Settings from './Settings';
@@ -8,6 +9,10 @@ import './dashboard.css';
 const { Header, Content, Footer, Sider } = Layout;
 
 class Dashboard extends React.Component {
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -20,10 +25,6 @@ class Dashboard extends React.Component {
     this.setState({
       collapsed: !this.state.collapsed,
     });
-  }
-
-  static contextTypes = {
-    router: React.PropTypes.object
   }
 
   linkTo = (route) => {
