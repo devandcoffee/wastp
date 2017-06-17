@@ -13,5 +13,5 @@ export {
   Home,
   Dashboard,
   Login,
-  Tournaments
+  Tournaments,
 };
