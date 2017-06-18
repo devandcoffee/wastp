@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Row } from 'antd';
+import { Button, Row, notification } from 'antd';
 import WrappedTournamentsAdd from './TournamentsAdd';
 import TournamentsList from './TournamentsList';
 import * as tournamentsApi from '../../api/tournamentsApi';
@@ -9,6 +9,10 @@ const MODE_ADD = 1;
 const MODE_EDIT = 2;
 const MODE_DETAIL = 3;
 
+const NOTIFICATION_SUCCESS = 'success';
+const NOTIFICATION_INFO = 'info';
+const NOTIFICATION_WARNING = 'warning';
+const NOTIFICATION_ERROR = 'error';
 
 class Tournaments extends Component {
   constructor(props) {
@@ -38,6 +42,24 @@ class Tournaments extends Component {
     this.setState({ mode: MODE_LIST })
   }
 
+  showNotification = (type, title, description) => {
+    notification[type]({
+      message: title,
+      description: description,
+    });
+  }
+
+  saveTournament = (data) => {
+    const { mode } = this.state;
+    if (mode === MODE_ADD) {
+      tournamentsApi.post(data).then(response => {
+        this.showNotification(NOTIFICATION_SUCCESS, 'Tournaments', 'Tournament created.')
+      }).catch((err) => {
+        this.showNotification(NOTIFICATION_ERROR, 'Tournaments', 'There was an error while creating the tournament.')
+      })
+    }
+  }
+
   render() {
     const { mode, tournamentsList } = this.state;
     return (
@@ -53,7 +75,11 @@ class Tournaments extends Component {
           </div>
         }
         {
-          mode === MODE_ADD && <WrappedTournamentsAdd backToList={this.backToList} />
+          mode === MODE_ADD &&
+          <WrappedTournamentsAdd
+            backToList={this.backToList}
+            saveTournament={this.saveTournament}
+          />
         }
       </div>
 
