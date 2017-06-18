@@ -20,7 +20,7 @@ class Tournaments extends Component {
     super(props);
     this.state = {
       tournamentsList: [],
-      activeRecord: {},
+      activeRecord: null,
       mode: MODE_LIST,
     }
   }
@@ -37,7 +37,7 @@ class Tournaments extends Component {
   }
 
   newTournament = () => {
-    this.setState({ mode: MODE_ADD })
+    this.setState({ mode: MODE_ADD, activeRecord: null })
   }
 
   backToList = () => {
