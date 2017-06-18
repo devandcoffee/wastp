@@ -4,13 +4,9 @@ import WrappedTournamentsAdd from './TournamentsAdd';
 import TournamentsList from './TournamentsList';
 import * as tournamentsApi from '../../api/tournamentsApi';
 import * as TABLE_ACTIONS from './constants';
+import * as VIEW_MODES from './viewmodes';
 
 const confirm = Modal.confirm;
-
-const MODE_LIST = 0;
-const MODE_ADD = 1;
-const MODE_EDIT = 2;
-const MODE_DETAIL = 3;
 
 const NOTIFICATION_SUCCESS = 'success';
 const NOTIFICATION_INFO = 'info';
@@ -30,7 +26,7 @@ class Tournaments extends Component {
     this.state = {
       tournamentsList: [],
       activeRecord: null,
-      mode: MODE_LIST,
+      mode: VIEW_MODES.MODE_LIST,
     }
   }
 
@@ -50,16 +46,16 @@ class Tournaments extends Component {
   }
 
   newTournament = () => {
-    this.setState({ mode: MODE_ADD, activeRecord: null })
+    this.setState({ mode: VIEW_MODES.MODE_ADD, activeRecord: null })
   }
 
   backToList = () => {
-    this.setState({ mode: MODE_LIST })
+    this.setState({ mode: VIEW_MODES.MODE_LIST })
   }
 
-
   saveTournament = (data) => {
-    if (mode === MODE_ADD) {
+    const { mode } = this.state;
+    if (mode === VIEW_MODES.MODE_ADD) {
       tournamentsApi.post(data).then(response => {
         showNotification(NOTIFICATION_SUCCESS, 'Tournaments', 'Tournament created.')
       }).catch((err) => {
@@ -67,14 +63,13 @@ class Tournaments extends Component {
       })
     }
 
-    if (mode === MODE_EDIT) {
+    if (mode === VIEW_MODES.MODE_EDIT) {
       tournamentsApi.patch(data.id, data).then(response => {
         showNotification(NOTIFICATION_SUCCESS, 'Tournaments', 'Tournament updated.')
       }).catch((err) => {
         showNotification(NOTIFICATION_ERROR, 'Tournaments', 'There was an error while updating the tournament.')
       })
     }
-
   }
 
   showConfirm = (id) => {
@@ -102,7 +97,7 @@ class Tournaments extends Component {
     switch (action) {
       case TABLE_ACTIONS.EDIT_RECORD:
         this.setState({
-          mode: MODE_EDIT,
+          mode: VIEW_MODES.MODE_EDIT,
           activeRecord: record
         });
         break;
@@ -111,7 +106,7 @@ class Tournaments extends Component {
         break;
       case TABLE_ACTIONS.SHOW_RECORD:
         this.setState({
-          mode: MODE_DETAIL,
+          mode: VIEW_MODES.MODE_DETAIL,
           activeRecord: record
         });
         break;
@@ -123,7 +118,7 @@ class Tournaments extends Component {
     return (
       <div>
         {
-          mode === MODE_LIST && <div>
+          mode === VIEW_MODES.MODE_LIST && <div>
             <Row>
               <Button type="primary" icon='plus' onClick={this.newTournament}> New Tournament </Button>
             </Row>
@@ -133,11 +128,12 @@ class Tournaments extends Component {
           </div>
         }
         {
-          (mode === MODE_ADD || mode === MODE_EDIT) &&
+          (mode !== VIEW_MODES.MODE_LIST) &&
           <WrappedTournamentsAdd
             backToList={this.backToList}
             saveTournament={this.saveTournament}
             activeRecord={activeRecord}
+            viewMode={mode}
           />
         }
       </div>
