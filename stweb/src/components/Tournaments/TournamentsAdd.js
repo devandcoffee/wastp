@@ -8,7 +8,6 @@ class TournamentsAdd extends Component {
 
   componentDidMount() {
     const { activeRecord } = this.props;
-    console.log(activeRecord);
     if (activeRecord) {
       this.props.form.setFieldsValue({
         amount_teams: activeRecord.amount_teams,
