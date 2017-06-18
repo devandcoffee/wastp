@@ -60,6 +60,15 @@ class Tournaments extends Component {
         this.showNotification(NOTIFICATION_ERROR, 'Tournaments', 'There was an error while creating the tournament.')
       })
     }
+
+    if (mode === MODE_EDIT) {
+      tournamentsApi.patch(data.id, data).then(response => {
+        this.showNotification(NOTIFICATION_SUCCESS, 'Tournaments', 'Tournament updated.')
+      }).catch((err) => {
+        this.showNotification(NOTIFICATION_ERROR, 'Tournaments', 'There was an error while updating the tournament.')
+      })
+    }
+
   }
 
   emit = (text, record, index, action) => {
