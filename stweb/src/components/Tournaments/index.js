@@ -3,6 +3,7 @@ import { Button, Row, notification } from 'antd';
 import WrappedTournamentsAdd from './TournamentsAdd';
 import TournamentsList from './TournamentsList';
 import * as tournamentsApi from '../../api/tournamentsApi';
+import * as TABLE_ACTIONS from './constants';
 
 const MODE_LIST = 0;
 const MODE_ADD = 1;
@@ -19,6 +20,7 @@ class Tournaments extends Component {
     super(props);
     this.state = {
       tournamentsList: [],
+      activeRecord: {},
       mode: MODE_LIST,
     }
   }
@@ -60,8 +62,23 @@ class Tournaments extends Component {
     }
   }
 
+  emit = (text, record, index, action) => {
+    console.log(action, record)
+    switch (action) {
+      case TABLE_ACTIONS.EDIT_RECORD:
+        this.setState({
+          mode: MODE_EDIT,
+          activeRecord: record
+        })
+        break;
+
+      default:
+        break;
+    }
+  }
+
   render() {
-    const { mode, tournamentsList } = this.state;
+    const { activeRecord, mode, tournamentsList } = this.state;
     return (
       <div>
         {
@@ -70,15 +87,16 @@ class Tournaments extends Component {
               <Button type="primary" icon='plus' onClick={this.newTournament}> New Tournament </Button>
             </Row>
             <Row style={{ marginTop: '25px' }}>
-              <TournamentsList list={tournamentsList} />
+              <TournamentsList list={tournamentsList} emit={this.emit} />
             </Row>
           </div>
         }
         {
-          mode === MODE_ADD &&
+          (mode === MODE_ADD || mode === MODE_EDIT) &&
           <WrappedTournamentsAdd
             backToList={this.backToList}
             saveTournament={this.saveTournament}
+            activeRecord={activeRecord}
           />
         }
       </div>
