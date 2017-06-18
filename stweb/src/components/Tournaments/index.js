@@ -20,7 +20,14 @@ class Tournaments extends Component {
   }
 
   componentDidMount() {
-    tournamentsApi.get().then(response => this.setState({ tournamentsList: response.data }))
+    tournamentsApi.get().then(response => this.setState({ tournamentsList: response.data }));
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { mode } = this.state;
+    if (prevState.mode !== mode) {
+      tournamentsApi.get().then(response => this.setState({ tournamentsList: response.data }));
+    }
   }
 
   newTournament = () => {
