@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Tournament;
+use App\User;
 use Illuminate\Http\Request;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use Spatie\Fractalistic\Fractal;
-use App\Transformers\TournamentTransformer;
+use App\Transformers\UserTransformer;
 
-class TournamentController extends Controller
+
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,15 +18,23 @@ class TournamentController extends Controller
      */
     public function index(Request $request)
     {
-        $perPage = ($request->perPage) ? $request->perPage : 15;
-        $tournaments = Tournament::orderBy('start_date', 'desc')->paginate($perPage);
+        $perPage = ($request->perPage) ? $request->perPage : 10;
+        $users = User::orderBy('username', 'desc')->paginate($perPage);
         return fractal()
-            ->collection($tournaments->getCollection(), null, 'Tournaments')
-            ->parseIncludes(['user'])
-            ->transformWith(new TournamentTransformer())
-            ->paginateWith(new IlluminatePaginatorAdapter($tournaments))
-            ->respond()
-        ;
+            ->collection($users->getCollection(), null, 'Users')
+            ->transformWith(new UserTransformer())
+            ->paginateWith(new IlluminatePaginatorAdapter($users))
+            ->respond();
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -42,27 +51,25 @@ class TournamentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Tournament  $tournament
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Tournament $tournament)
+    public function show(User $user)
     {
-        $tournaments = collect([$tournament]);
+        $users = collect([$user]);
         return fractal()
-            ->collection($tournaments, null, 'Tournaments')
-            ->parseIncludes(['user', 'teams'])
-            ->transformWith(new TournamentTransformer())
-            ->respond()
-        ;
+            ->collection($users, null, 'Users')
+            ->transformWith(new UserTransformer())
+            ->respond();
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Tournament  $tournament
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tournament $tournament)
+    public function edit($id)
     {
         //
     }
@@ -71,10 +78,10 @@ class TournamentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tournament  $tournament
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tournament $tournament)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -82,12 +89,11 @@ class TournamentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Tournament  $tournament
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tournament $tournament)
+    public function destroy($id)
     {
         //
     }
-
 }

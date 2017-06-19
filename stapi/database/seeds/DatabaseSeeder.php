@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
 
         $this->call('UsersTableSeeder');
+        $this->call('TeamTournamentTableSeeder');
 
         Schema::enableForeignKeyConstraints();
         Eloquent::reguard();
