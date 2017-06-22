@@ -45,12 +45,15 @@ class TournamentController extends Controller
      * @param  \App\Tournament  $tournament
      * @return \Illuminate\Http\Response
      */
-    public function show(Tournament $tournament)
+    public function show(Tournament $tournament, Request $request)
     {
+        $includes = explode(',', $request->include);
+        $parseIncludes =  $includes ? $includes : [];
+
         $tournaments = collect([$tournament]);
         return fractal()
             ->collection($tournaments, null, 'Tournaments')
-            ->parseIncludes(['user', 'teams'])
+            ->parseIncludes($parseIncludes)
             ->transformWith(new TournamentTransformer())
             ->respond()
         ;
