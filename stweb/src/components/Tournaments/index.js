@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Modal, Row, notification } from 'antd';
 import WrappedTournamentsAdd from './TournamentsAdd';
-import TournamentsList from './TournamentsList';
+import { SmartTable } from '../../shared';
 import * as tournamentsApi from '../../api/tournamentsApi';
 import * as TABLE_ACTIONS from './constants';
 import * as VIEW_MODES from './viewmodes';
@@ -9,9 +9,27 @@ import * as VIEW_MODES from './viewmodes';
 const confirm = Modal.confirm;
 
 const NOTIFICATION_SUCCESS = 'success';
-const NOTIFICATION_INFO = 'info';
-const NOTIFICATION_WARNING = 'warning';
+// const NOTIFICATION_INFO = 'info';
+// const NOTIFICATION_WARNING = 'warning';
 const NOTIFICATION_ERROR = 'error';
+
+const columns = [{
+  title: 'Name',
+  dataIndex: 'name',
+  key: 'name',
+}, {
+  title: 'Start Date',
+  dataIndex: 'start_date',
+  key: 'start_date',
+}, {
+  title: 'Amount Teams',
+  dataIndex: 'amount_teams',
+  key: 'amount_teams',
+}, {
+  title: 'Description',
+  dataIndex: 'description',
+  key: 'description',
+}];
 
 const showNotification = (type, title, description) => {
   notification[type]({
@@ -110,6 +128,8 @@ class Tournaments extends Component {
           activeRecord: record
         });
         break;
+      default:
+        break;
     }
   }
 
@@ -123,7 +143,7 @@ class Tournaments extends Component {
               <Button type="primary" icon='plus' onClick={this.newTournament}> New Tournament </Button>
             </Row>
             <Row style={{ marginTop: '25px' }}>
-              <TournamentsList list={tournamentsList} emit={this.emit} />
+              <SmartTable dataSource={tournamentsList} emit={this.emit} columns={columns} rowKey="user_id" />
             </Row>
           </div>
         }
