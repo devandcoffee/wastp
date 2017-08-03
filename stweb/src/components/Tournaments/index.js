@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import { Button, Modal, Row, notification } from 'antd';
-import WrappedTournamentsAdd from './TournamentsAdd';
+import WrappedTournamentsForm from './TournamentsForm';
 import { SmartTable } from '../../shared';
+import { FORM, TABLE } from '../../constants';
+import { NOTIFICATIONS } from '../../messages';
 import * as tournamentsApi from '../../api/tournamentsApi';
-import * as TABLE_ACTIONS from './constants';
-import * as VIEW_MODES from './viewmodes';
 
 const confirm = Modal.confirm;
-
-const NOTIFICATION_SUCCESS = 'success';
-// const NOTIFICATION_INFO = 'info';
-// const NOTIFICATION_WARNING = 'warning';
-const NOTIFICATION_ERROR = 'error';
 
 const columns = [{
   title: 'Name',
@@ -44,7 +39,7 @@ class Tournaments extends Component {
     this.state = {
       tournamentsList: [],
       activeRecord: null,
-      mode: VIEW_MODES.MODE_LIST,
+      mode: FORM.MODE_LIST,
     }
   }
 
@@ -64,28 +59,28 @@ class Tournaments extends Component {
   }
 
   newTournament = () => {
-    this.setState({ mode: VIEW_MODES.MODE_ADD, activeRecord: null })
+    this.setState({ mode: FORM.MODE_ADD, activeRecord: null })
   }
 
   backToList = () => {
-    this.setState({ mode: VIEW_MODES.MODE_LIST })
+    this.setState({ mode: FORM.MODE_LIST })
   }
 
   saveTournament = (data) => {
     const { mode } = this.state;
-    if (mode === VIEW_MODES.MODE_ADD) {
+    if (mode === FORM.MODE_ADD) {
       tournamentsApi.post(data).then(response => {
-        showNotification(NOTIFICATION_SUCCESS, 'Tournaments', 'Tournament created.')
+        showNotification(NOTIFICATIONS.NOTIFICATION_SUCCESS, 'Tournaments', 'Tournament created.')
       }).catch((err) => {
-        showNotification(NOTIFICATION_ERROR, 'Tournaments', 'There was an error while creating the tournament.')
+        showNotification(NOTIFICATIONS.NOTIFICATION_ERROR, 'Tournaments', 'There was an error while creating the tournament.')
       })
     }
 
-    if (mode === VIEW_MODES.MODE_EDIT) {
+    if (mode === FORM.MODE_EDIT) {
       tournamentsApi.patch(data.id, data).then(response => {
-        showNotification(NOTIFICATION_SUCCESS, 'Tournaments', 'Tournament updated.')
+        showNotification(NOTIFICATIONS.NOTIFICATION_SUCCESS, 'Tournaments', 'Tournament updated.')
       }).catch((err) => {
-        showNotification(NOTIFICATION_ERROR, 'Tournaments', 'There was an error while updating the tournament.')
+        showNotification(NOTIFICATIONS.NOTIFICATION_ERROR, 'Tournaments', 'There was an error while updating the tournament.')
       })
     }
   }
@@ -97,10 +92,10 @@ class Tournaments extends Component {
       content: 'When clicked the OK button, the tournament will be deleted.',
       onOk() {
         tournamentsApi.remove(id).then(response => {
-          showNotification(NOTIFICATION_SUCCESS, 'Tournaments', 'Tournament deleted.')
+          showNotification(NOTIFICATIONS.NOTIFICATION_SUCCESS, 'Tournaments', 'Tournament deleted.')
           refreshList();
         }).catch((err) => {
-          showNotification(NOTIFICATION_ERROR, 'Tournaments', 'There was an error while deleting the tournament.')
+          showNotification(NOTIFICATIONS.NOTIFICATION_ERROR, 'Tournaments', 'There was an error while deleting the tournament.')
         })
       },
       onCancel() { },
@@ -113,18 +108,18 @@ class Tournaments extends Component {
 
   emit = (text, record, index, action) => {
     switch (action) {
-      case TABLE_ACTIONS.EDIT_RECORD:
+      case TABLE.EDIT_RECORD:
         this.setState({
-          mode: VIEW_MODES.MODE_EDIT,
+          mode: FORM.MODE_EDIT,
           activeRecord: record
         });
         break;
-      case TABLE_ACTIONS.REMOVE_RECORD:
+      case TABLE.REMOVE_RECORD:
         this.deleteTournament(record.id);
         break;
-      case TABLE_ACTIONS.SHOW_RECORD:
+      case TABLE.SHOW_RECORD:
         this.setState({
-          mode: VIEW_MODES.MODE_DETAIL,
+          mode: FORM.MODE_DETAIL,
           activeRecord: record
         });
         break;
@@ -138,7 +133,7 @@ class Tournaments extends Component {
     return (
       <div>
         {
-          mode === VIEW_MODES.MODE_LIST && <div>
+          mode === FORM.MODE_LIST && <div>
             <Row>
               <Button type="primary" icon='plus' onClick={this.newTournament}> New Tournament </Button>
             </Row>
@@ -148,8 +143,8 @@ class Tournaments extends Component {
           </div>
         }
         {
-          (mode !== VIEW_MODES.MODE_LIST) &&
-          <WrappedTournamentsAdd
+          (mode !== FORM.MODE_LIST) &&
+          <WrappedTournamentsForm
             backToList={this.backToList}
             saveTournament={this.saveTournament}
             activeRecord={activeRecord}

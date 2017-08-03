@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Button, Card, Row, Col, Form, Input, DatePicker, InputNumber } from 'antd';
 import moment from 'moment';
-import * as VIEW_MODES from './viewmodes';
+import { FORM } from '../../constants';
 
 const FormItem = Form.Item;
 
-class TournamentsAdd extends Component {
+class TournamentsForm extends Component {
 
   componentDidMount() {
     const { activeRecord } = this.props;
@@ -44,12 +44,12 @@ class TournamentsAdd extends Component {
               <Col md={0}>
                 <FormItem label="id">
                   {getFieldDecorator('id')(
-                    < Input placeholder="id" disabled={viewMode === VIEW_MODES.MODE_DETAIL} />
+                    < Input placeholder="id" disabled={viewMode === FORM.MODE_DETAIL} />
                   )}
                 </FormItem>
                 <FormItem label="user_id">
                   {getFieldDecorator('user_id')(
-                    < Input placeholder="user_id" disabled={viewMode === VIEW_MODES.MODE_DETAIL} />
+                    < Input placeholder="user_id" disabled={viewMode === FORM.MODE_DETAIL} />
                   )}
                 </FormItem>
               </Col>
@@ -57,7 +57,7 @@ class TournamentsAdd extends Component {
                 <Col md={8}>
                   <FormItem label="Name">
                     {getFieldDecorator('name')(
-                      < Input placeholder="Name" disabled={viewMode === VIEW_MODES.MODE_DETAIL} />
+                      < Input placeholder="Name" disabled={viewMode === FORM.MODE_DETAIL} />
                     )}
                   </FormItem>
                 </Col>
@@ -68,7 +68,7 @@ class TournamentsAdd extends Component {
                         format="DD-MM-YYYY HH:mm:ss"
                         showTime
                         style={{ width: '100%' }}
-                        disabled={viewMode === VIEW_MODES.MODE_DETAIL}
+                        disabled={viewMode === FORM.MODE_DETAIL}
                       />
                     )}
                   </FormItem>
@@ -79,7 +79,7 @@ class TournamentsAdd extends Component {
                       <InputNumber
                         min={2} max={50}
                         style={{ width: '100%' }}
-                        disabled={viewMode === VIEW_MODES.MODE_DETAIL}
+                        disabled={viewMode === FORM.MODE_DETAIL}
                       />
                     )}
                   </FormItem>
@@ -88,12 +88,12 @@ class TournamentsAdd extends Component {
               <Row>
                 <FormItem label="Description">
                   {getFieldDecorator('description')(
-                    <Input type="textarea" rows={4} disabled={viewMode === VIEW_MODES.MODE_DETAIL} />
+                    <Input type="textarea" rows={4} disabled={viewMode === FORM.MODE_DETAIL} />
                   )}
                 </FormItem>
               </Row>
               {
-                (viewMode !== VIEW_MODES.MODE_DETAIL) &&
+                (viewMode !== FORM.MODE_DETAIL) &&
                 <Row>
                   <FormItem>
                     <Button type="primary" htmlType="submit" size="large" icon="save">Save</Button>
@@ -108,6 +108,6 @@ class TournamentsAdd extends Component {
   }
 }
 
-const WrappedTournamentsAdd = Form.create()(TournamentsAdd);
+const WrappedTournamentsForm = Form.create()(TournamentsForm);
 
-export default WrappedTournamentsAdd;
+export default WrappedTournamentsForm;
