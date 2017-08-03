@@ -34,8 +34,7 @@ set('branch', 'master');
 host('104.236.121.143')
     ->stage('testing')
     ->user('wastp')
-    ->forwardAgent(true)
-    ->set('deploy_path', '{{deploy_path}}');
+    ->forwardAgent(true);
 
 // Tasks
 desc('Upload local folder on the remote server');
