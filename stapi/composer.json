@@ -12,6 +12,8 @@
         "spatie/laravel-fractal": "^4.0"
     },
     "require-dev": {
+        "deployer/deployer": "^5.1",
+        "deployer/recipes": "^4.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~5.7"
