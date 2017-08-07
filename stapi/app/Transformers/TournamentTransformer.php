@@ -29,6 +29,7 @@ class TournamentTransformer extends TransformerAbstract
         return [
             'id' => $tournament->id,
             'name' => $tournament->name,
+            'type' => $tournament->tournament_type->type,
             'description' => $tournament->description,
             'start_date' => $tournament->start_date,
             'amount_teams' => $tournament->amount_teams,
