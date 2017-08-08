@@ -12,8 +12,8 @@ class TournamentsTypesTableSeeder extends Seeder
     public function run()
     {
         DB::table('tournaments_types')->insert([
-            ['type' => 'league'],
-            ['type' => 'cup'],
+            ['name' => 'league'],
+            ['name' => 'cup'],
         ]);
     }
 }

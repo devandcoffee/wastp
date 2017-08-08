@@ -8,7 +8,7 @@ class TournamentType extends Model
 {
     protected $table = 'tournaments_types';
 
-    protected $fillable = ['type'];
+    protected $fillable = ['name'];
 
     public function tournaments()
     {
