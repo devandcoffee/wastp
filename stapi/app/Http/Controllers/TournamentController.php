@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Tournament;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTournament;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use Spatie\Fractalistic\Fractal;
 use App\Transformers\TournamentTransformer;
@@ -34,9 +35,14 @@ class TournamentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTournament $request)
     {
-        //
+        $tournament = Tournament::create($request->all());
+        $tournaments = collect([$tournament]);
+        return fractal()
+            ->collection($tournaments, null, 'Tournaments')
+            ->transformWith(new TournamentTransformer())
+            ->respond();
     }
 
     /**
@@ -60,26 +66,20 @@ class TournamentController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Tournament  $tournament
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Tournament $tournament)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Tournament  $tournament
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tournament $tournament)
+    public function update(StoreTournament $request, Tournament $tournament)
     {
-        //
+        $tournament->update($request->all());
+        $tournaments = collect([$tournament]);
+        return fractal()
+            ->collection($tournaments, null, 'Tournaments')
+            ->transformWith(new TournamentTransformer())
+            ->respond();
     }
 
     /**
@@ -90,7 +90,8 @@ class TournamentController extends Controller
      */
     public function destroy(Tournament $tournament)
     {
-        //
+        $tournament->delete();
+        return response()->json(['message' => 'Tournament deleted successfully.']);
     }
 
 }
