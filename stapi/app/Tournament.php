@@ -3,18 +3,25 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tournament extends Model
 {
+
+    use SoftDeletes;
+
     public $with = ['user', 'teams'];
 
     protected $fillable = [
         'user_id',
         'name',
+        'tournament_type_id',
         'start_date',
         'amount_teams',
         'description'
     ];
+
+    protected $dates = ['deleted_at'];
 
     public function user()
     {
@@ -24,5 +31,10 @@ class Tournament extends Model
     public function teams()
     {
         return $this->belongsToMany('App\Team');
+    }
+
+    public function tournament_type()
+    {
+        return $this->belongsTo('App\TournamentType');
     }
 }
