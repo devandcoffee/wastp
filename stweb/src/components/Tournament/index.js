@@ -38,7 +38,7 @@ const showNotification = (type, title, description) => {
   });
 };
 
-class Tournaments extends Component {
+class Tournament extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -200,4 +200,4 @@ class Tournaments extends Component {
   }
 }
 
-export default Tournaments;
+export default Tournament;

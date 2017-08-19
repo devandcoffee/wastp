@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Tournaments from "../components/Tournaments";
+import Tournament from "../components/Tournament";
 
 class TournamentContainer extends Component {
   render() {
-    return <Tournaments />;
+    return <Tournament />;
   }
 }
 
