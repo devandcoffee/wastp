@@ -7,24 +7,32 @@ import {
   Form,
   Input,
   DatePicker,
-  InputNumber
+  InputNumber,
+  Select
 } from "antd";
 import moment from "moment";
 import { FORM } from "../../constants";
 
+const Option = Select.Option;
 const FormItem = Form.Item;
 
 class TournamentsForm extends Component {
   componentDidMount() {
-    const { activeRecord } = this.props;
+    const { activeRecord, user_id } = this.props;
+
+    // all forms needs this field
+    this.props.form.setFieldsValue({
+      user_id: user_id
+    });
+
     if (activeRecord) {
       this.props.form.setFieldsValue({
         amount_teams: activeRecord.amount_teams,
         description: activeRecord.description,
+        tournament_type_id: activeRecord.tournament_type_id,
         id: activeRecord.id,
         name: activeRecord.name,
-        start_date: moment(activeRecord.start_date),
-        user_id: activeRecord.user_id
+        start_date: moment(activeRecord.start_date)
       });
     }
   }
@@ -55,7 +63,7 @@ class TournamentsForm extends Component {
             style={{ width: "100%", marginTop: "25px" }}
           >
             <Form layout="vertical" onSubmit={this.handleSubmit}>
-              <Col md={0}>
+              <Col style={{ display: "none" }}>
                 <FormItem label="id">
                   {getFieldDecorator("id")(
                     <Input
@@ -74,7 +82,7 @@ class TournamentsForm extends Component {
                 </FormItem>
               </Col>
               <Row gutter={25}>
-                <Col md={8}>
+                <Col md={12}>
                   <FormItem label="Name">
                     {getFieldDecorator("name")(
                       <Input
@@ -84,7 +92,26 @@ class TournamentsForm extends Component {
                     )}
                   </FormItem>
                 </Col>
-                <Col md={8}>
+                <Col md={12}>
+                  <FormItem label="Tournament Type">
+                    {getFieldDecorator("tournament_type_id", {
+                      rules: [
+                        {
+                          required: true,
+                          message: "Please select a tournament type."
+                        }
+                      ]
+                    })(
+                      <Select placeholder="Please select a tournament type.">
+                        <Option value="1">League</Option>
+                        <Option value="2">Groups</Option>
+                      </Select>
+                    )}
+                  </FormItem>
+                </Col>
+              </Row>
+              <Row gutter={25}>
+                <Col md={12}>
                   <FormItem label="Start Date">
                     {getFieldDecorator("start_date")(
                       <DatePicker
@@ -96,7 +123,7 @@ class TournamentsForm extends Component {
                     )}
                   </FormItem>
                 </Col>
-                <Col md={8}>
+                <Col md={12}>
                   <FormItem label="Amount Teams">
                     {getFieldDecorator("amount_teams")(
                       <InputNumber

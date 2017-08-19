@@ -42,7 +42,6 @@ class Tournament extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tournamentsList: [],
       activeRecord: null,
       mode: FORM.MODE_LIST
     };
@@ -68,6 +67,11 @@ class Tournament extends Component {
   };
 
   saveTournament = data => {
+    const { mode } = this.state;
+    if (mode === FORM.MODE_ADD) {
+      this.props.saveTournament(data);
+    }
+
     // const { mode } = this.state;
     // if (mode === FORM.MODE_ADD) {
     //   tournamentsApi
@@ -163,7 +167,7 @@ class Tournament extends Component {
 
   render() {
     const { activeRecord, mode } = this.state;
-    const { tournamentsList } = this.props;
+    const { userInfo, tournamentsList } = this.props;
     return (
       <div>
         {mode === FORM.MODE_LIST &&
@@ -188,6 +192,7 @@ class Tournament extends Component {
             saveTournament={this.saveTournament}
             activeRecord={activeRecord}
             viewMode={mode}
+            user_id={userInfo.user_id}
           />}
       </div>
     );
@@ -200,7 +205,8 @@ Tournament.defaultProps = {
 
 Tournament.propTypes = {
   tournamentsList: PropTypes.array,
-  refreshList: PropTypes.func.isRequired
+  refreshList: PropTypes.func.isRequired,
+  saveTournament: PropTypes.func.isRequired
 };
 
 export default Tournament;
