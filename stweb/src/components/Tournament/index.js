@@ -1,10 +1,10 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { Button, Modal, Row, notification } from "antd";
 import WrappedTournamentsForm from "./TournamentsForm";
 import { SmartTable } from "../../shared";
 import { FORM, TABLE } from "../../constants";
 import { NOTIFICATIONS } from "../../messages";
-import * as tournamentsApi from "../../api/tournamentsApi";
 
 const confirm = Modal.confirm;
 
@@ -48,20 +48,14 @@ class Tournament extends Component {
     };
   }
 
-  refreshList = () => {
-    tournamentsApi.get().then(response => {
-      this.setState({ tournamentsList: response.data.data });
-    });
-  };
-
   componentDidMount() {
-    this.refreshList();
+    this.props.refreshList();
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { mode } = this.state;
     if (prevState.mode !== mode) {
-      this.refreshList();
+      this.props.refreshList();
     }
   }
 
@@ -74,72 +68,71 @@ class Tournament extends Component {
   };
 
   saveTournament = data => {
-    const { mode } = this.state;
-    if (mode === FORM.MODE_ADD) {
-      tournamentsApi
-        .post(data)
-        .then(response => {
-          showNotification(
-            NOTIFICATIONS.NOTIFICATION_SUCCESS,
-            "Tournaments",
-            "Tournament created."
-          );
-        })
-        .catch(err => {
-          showNotification(
-            NOTIFICATIONS.NOTIFICATION_ERROR,
-            "Tournaments",
-            "There was an error while creating the tournament."
-          );
-        });
-    }
-
-    if (mode === FORM.MODE_EDIT) {
-      tournamentsApi
-        .patch(data.id, data)
-        .then(response => {
-          showNotification(
-            NOTIFICATIONS.NOTIFICATION_SUCCESS,
-            "Tournaments",
-            "Tournament updated."
-          );
-        })
-        .catch(err => {
-          showNotification(
-            NOTIFICATIONS.NOTIFICATION_ERROR,
-            "Tournaments",
-            "There was an error while updating the tournament."
-          );
-        });
-    }
+    // const { mode } = this.state;
+    // if (mode === FORM.MODE_ADD) {
+    //   tournamentsApi
+    //     .post(data)
+    //     .then(response => {
+    //       showNotification(
+    //         NOTIFICATIONS.NOTIFICATION_SUCCESS,
+    //         "Tournaments",
+    //         "Tournament created."
+    //       );
+    //     })
+    //     .catch(err => {
+    //       showNotification(
+    //         NOTIFICATIONS.NOTIFICATION_ERROR,
+    //         "Tournaments",
+    //         "There was an error while creating the tournament."
+    //       );
+    //     });
+    // }
+    // if (mode === FORM.MODE_EDIT) {
+    //   tournamentsApi
+    //     .patch(data.id, data)
+    //     .then(response => {
+    //       showNotification(
+    //         NOTIFICATIONS.NOTIFICATION_SUCCESS,
+    //         "Tournaments",
+    //         "Tournament updated."
+    //       );
+    //     })
+    //     .catch(err => {
+    //       showNotification(
+    //         NOTIFICATIONS.NOTIFICATION_ERROR,
+    //         "Tournaments",
+    //         "There was an error while updating the tournament."
+    //       );
+    //     });
+    // }
   };
 
   showConfirm = id => {
-    const { refreshList } = this;
-    confirm({
-      title: "Do you want to delete this item?",
-      content: "When clicked the OK button, the tournament will be deleted.",
-      onOk() {
-        tournamentsApi
-          .remove(id)
-          .then(response => {
-            showNotification(
-              NOTIFICATIONS.NOTIFICATION_SUCCESS,
-              "Tournaments",
-              "Tournament deleted."
-            );
-            refreshList();
-          })
-          .catch(err => {
-            showNotification(
-              NOTIFICATIONS.NOTIFICATION_ERROR,
-              "Tournaments",
-              "There was an error while deleting the tournament."
-            );
-          });
-      },
-      onCancel() {}
-    });
+    // const { refreshList } = this;
+    // confirm({
+    //   title: "Do you want to delete this item?",
+    //   content: "When clicked the OK button, the tournament will be deleted.",
+    //   onOk() {
+    //     tournamentsApi
+    //       .remove(id)
+    //       .then(response => {
+    //         showNotification(
+    //           NOTIFICATIONS.NOTIFICATION_SUCCESS,
+    //           "Tournaments",
+    //           "Tournament deleted."
+    //         );
+    //         refreshList();
+    //       })
+    //       .catch(err => {
+    //         showNotification(
+    //           NOTIFICATIONS.NOTIFICATION_ERROR,
+    //           "Tournaments",
+    //           "There was an error while deleting the tournament."
+    //         );
+    //       });
+    //   },
+    //   onCancel() {}
+    // });
   };
 
   deleteTournament = id => {
@@ -169,7 +162,8 @@ class Tournament extends Component {
   };
 
   render() {
-    const { activeRecord, mode, tournamentsList } = this.state;
+    const { activeRecord, mode } = this.state;
+    const { tournamentsList } = this.props;
     return (
       <div>
         {mode === FORM.MODE_LIST &&
@@ -199,5 +193,14 @@ class Tournament extends Component {
     );
   }
 }
+
+Tournament.defaultProps = {
+  tournamentsList: []
+};
+
+Tournament.propTypes = {
+  tournamentsList: PropTypes.array,
+  refreshList: PropTypes.func.isRequired
+};
 
 export default Tournament;
