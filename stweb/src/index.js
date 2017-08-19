@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { LocaleProvider } from "antd";
 import enUS from "antd/lib/locale-provider/en_US";
-import App from "./components/App";
+import App from "./containers/App";
 
 ReactDOM.render(
   <LocaleProvider locale={enUS}>
@@ -12,8 +12,8 @@ ReactDOM.render(
 );
 
 if (module.hot) {
-  module.hot.accept("./components/App", () => {
-    const NextApp = require("./components/App").default;
+  module.hot.accept("./containers/App", () => {
+    const NextApp = require("./containers/App").default;
     ReactDOM.render(
       <LocaleProvider locale={enUS}>
         <NextApp />

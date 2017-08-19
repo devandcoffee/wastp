@@ -1,7 +1,6 @@
 import React from "react";
 import { PropTypes } from "prop-types";
 import { Layout, Icon } from "antd";
-import Contents from "../Contents";
 import Settings from "./Settings";
 import SidebarMenu from "./SidebarMenu";
 import "./dashboard.css";
@@ -58,7 +57,7 @@ class Dashboard extends React.Component {
               <div
                 style={{ padding: 24, background: "#fff", textAlign: "center" }}
               >
-                <Contents page={this.state.page} />
+                {this.props.children}
               </div>
             </Content>
             <Footer style={{ textAlign: "center" }}>
