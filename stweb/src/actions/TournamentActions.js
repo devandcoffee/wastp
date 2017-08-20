@@ -6,8 +6,6 @@ import * as tournamentMsg from "../messages/Tournaments";
 
 const TOURNAMENTS_URL = constructFromUrl("tournaments");
 
-export const get = () => axios.get(TOURNAMENTS_URL);
-
 export function fetchTournaments() {
   return dispatch => {
     axios
