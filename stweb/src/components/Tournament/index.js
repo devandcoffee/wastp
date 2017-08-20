@@ -15,7 +15,7 @@ const columns = [
   },
   {
     title: "Start Date",
-    dataIndex: "attributes.tart_date",
+    dataIndex: "attributes.start_date",
     key: "start_date"
   },
   {
