@@ -102,7 +102,7 @@ class Tournament extends Component {
       case TABLE.EDIT_RECORD:
         this.setState({
           mode: FORM.MODE_EDIT,
-          activeRecord: record
+          activeRecord: record.attributes
         });
         break;
       case TABLE.REMOVE_RECORD:
@@ -111,7 +111,7 @@ class Tournament extends Component {
       case TABLE.SHOW_RECORD:
         this.setState({
           mode: FORM.MODE_DETAIL,
-          activeRecord: record
+          activeRecord: record.attributes
         });
         break;
       default:
