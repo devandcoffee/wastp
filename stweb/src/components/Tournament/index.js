@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, Modal, Row, notification } from "antd";
+import { Button, Modal, Row } from "antd";
 import WrappedTournamentsForm from "./TournamentsForm";
 import { SmartTable } from "../../shared";
 import { FORM, TABLE } from "../../constants";
-import { NOTIFICATIONS } from "../../messages";
 
 const confirm = Modal.confirm;
 
@@ -30,13 +29,6 @@ const columns = [
     key: "description"
   }
 ];
-
-const showNotification = (type, title, description) => {
-  notification[type]({
-    message: title,
-    description: description
-  });
-};
 
 class Tournament extends Component {
   constructor(props) {
@@ -71,44 +63,6 @@ class Tournament extends Component {
     if (mode === FORM.MODE_ADD) {
       this.props.saveTournament(data);
     }
-
-    // const { mode } = this.state;
-    // if (mode === FORM.MODE_ADD) {
-    //   tournamentsApi
-    //     .post(data)
-    //     .then(response => {
-    //       showNotification(
-    //         NOTIFICATIONS.NOTIFICATION_SUCCESS,
-    //         "Tournaments",
-    //         "Tournament created."
-    //       );
-    //     })
-    //     .catch(err => {
-    //       showNotification(
-    //         NOTIFICATIONS.NOTIFICATION_ERROR,
-    //         "Tournaments",
-    //         "There was an error while creating the tournament."
-    //       );
-    //     });
-    // }
-    // if (mode === FORM.MODE_EDIT) {
-    //   tournamentsApi
-    //     .patch(data.id, data)
-    //     .then(response => {
-    //       showNotification(
-    //         NOTIFICATIONS.NOTIFICATION_SUCCESS,
-    //         "Tournaments",
-    //         "Tournament updated."
-    //       );
-    //     })
-    //     .catch(err => {
-    //       showNotification(
-    //         NOTIFICATIONS.NOTIFICATION_ERROR,
-    //         "Tournaments",
-    //         "There was an error while updating the tournament."
-    //       );
-    //     });
-    // }
   };
 
   showConfirm = id => {

@@ -1,6 +1,8 @@
 import axios from "axios";
 import constructFromUrl from "../utils/api";
+import * as notifications from "./NotificationActions";
 import * as types from "../constants/ActionTypes";
+import * as tournamentMsg from "../messages/Tournaments";
 
 const TOURNAMENTS_URL = constructFromUrl("tournaments");
 
@@ -20,11 +22,25 @@ export function receiveTournaments(tournamentsList) {
 
 export function saveTournament(tournament) {
   return dispatch => {
-    axios.post(TOURNAMENTS_URL, tournament).then(response => {
-      if (response.status === 200) {
-        dispatch(receiveTeournament(response.data.data));
-      }
-    });
+    axios
+      .post(TOURNAMENTS_URL, tournament)
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(receiveTeournament(response.data.data));
+          notifications.showNotification(
+            types.NOTIFY_SUCCESS,
+            tournamentMsg.TITLE,
+            tournamentMsg.CREATED
+          );
+        }
+      })
+      .catch(error => {
+        notifications.showNotification(
+          types.NOTIFY_ERROR,
+          tournamentMsg.TITLE,
+          tournamentMsg.ERROR
+        );
+      });
   };
 }
 
