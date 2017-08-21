@@ -6,10 +6,15 @@ import * as tournamentMsg from "../messages/Tournaments";
 
 const TOURNAMENTS_URL = constructFromUrl("tournaments");
 
-export function fetchTournaments() {
+export function fetchTournaments(tableParams) {
+  const params = {
+    page: tableParams.pagination.current,
+    perPage: tableParams.pagination.pageSize
+  };
   return dispatch => {
-    axios.get(TOURNAMENTS_URL).then(tournaments => {
+    axios.get(TOURNAMENTS_URL, { params }).then(tournaments => {
       dispatch(receiveTournaments(tournaments.data.data));
+      dispatch(receiveMeta(tournaments.data.meta));
       dispatch(refreshTournaments(false));
     });
   };
@@ -85,6 +90,15 @@ export function deleteTournament(id) {
         );
       });
   };
+}
+
+function receiveMeta(meta) {
+  const pagination = {
+    current: meta.pagination.current_page,
+    total: meta.pagination.total,
+    pageSize: meta.pagination.per_page
+  };
+  return { type: types.RECEIVE_META, pagination };
 }
 
 function receiveTournament(tournaments) {

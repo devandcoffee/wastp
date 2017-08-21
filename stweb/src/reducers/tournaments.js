@@ -20,6 +20,12 @@ export default function tournaments(state = [], action) {
       });
     }
 
+    case types.RECEIVE_META: {
+      return Object.assign({}, state, {
+        pagination: action.pagination
+      });
+    }
+
     default:
       return state;
   }

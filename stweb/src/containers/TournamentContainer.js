@@ -5,12 +5,8 @@ import Tournament from "../components/Tournament";
 import * as TournamentActions from "../actions/TournamentActions";
 
 class TournamentContainer extends Component {
-  componenDidMount() {
-    this.refreshList();
-  }
-
-  refreshList = () => {
-    this.props.actions.fetchTournaments();
+  refreshList = (pagination, filters, sorter) => {
+    this.props.actions.fetchTournaments({ pagination, filters, sorter });
   };
 
   saveTournament = data => {
@@ -42,7 +38,8 @@ function mapStateToProps(state) {
   return {
     userInfo: state.authed.userInfo,
     tournamentsList: state.tournaments.tournamentsList,
-    refresh: state.tournaments.refresh
+    refresh: state.tournaments.refresh,
+    pagination: state.tournaments.pagination
   };
 }
 

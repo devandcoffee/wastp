@@ -27,21 +27,37 @@ const ACTIONS_OBJ = emit => ({
 class SmartTable extends Component {
   constructor(props) {
     super(props);
-    const { columns, dataSource, emit, rowKey } = this.props;
+    const { columns, dataSource, emit, pagination, rowKey } = this.props;
     this.state = {
       columns: columns.concat(ACTIONS_OBJ(emit)),
       dataSource,
-      rowKey
+      rowKey,
+      pagination
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ dataSource: nextProps.dataSource });
+    this.setState({
+      dataSource: nextProps.dataSource,
+      pagination: nextProps.pagination
+    });
   }
 
+  handleTableChange = (pagination, filters, sorter) => {
+    this.props.handleTableChange(pagination, filters, sorter);
+  };
+
   render() {
-    const { columns, dataSource, rowKey } = this.state;
-    return <Table dataSource={dataSource} columns={columns} rowKey={rowKey} />;
+    const { columns, dataSource, pagination, rowKey } = this.state;
+    return (
+      <Table
+        dataSource={dataSource}
+        pagination={pagination}
+        columns={columns}
+        rowKey={rowKey}
+        onChange={this.handleTableChange}
+      />
+    );
   }
 }
 
@@ -51,6 +67,8 @@ SmartTable.defaultProps = {
 
 SmartTable.propTypes = {
   dataSource: PropTypes.array.isRequired,
+  pagination: PropTypes.object.isRequired,
+  handleTableChange: PropTypes.func.isRequired,
   emit: PropTypes.func.isRequired,
   rowKey: PropTypes.string
 };

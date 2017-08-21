@@ -30,6 +30,13 @@ const columns = [
   }
 ];
 
+const DEFAULT_PAGINATION = {
+  current: 1,
+  pageSize: 10
+};
+const DEFAULT_FILTERS = {};
+const DEFAULT_SORTERS = {};
+
 class Tournament extends Component {
   constructor(props) {
     super(props);
@@ -40,12 +47,20 @@ class Tournament extends Component {
   }
 
   componentDidMount() {
-    this.props.refreshList();
+    this.props.refreshList(
+      DEFAULT_PAGINATION,
+      DEFAULT_FILTERS,
+      DEFAULT_SORTERS
+    );
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.refresh !== nextProps.refresh && nextProps.refresh) {
-      this.props.refreshList();
+      this.props.refreshList(
+        DEFAULT_PAGINATION,
+        DEFAULT_FILTERS,
+        DEFAULT_SORTERS
+      );
     }
   }
 
@@ -113,9 +128,13 @@ class Tournament extends Component {
     }
   };
 
+  handleTableChange = (pagination, filters, sorter) => {
+    this.props.refreshList(pagination, filters, sorter);
+  };
+
   render() {
     const { activeRecord, mode } = this.state;
-    const { userInfo, tournamentsList } = this.props;
+    const { userInfo, tournamentsList, pagination } = this.props;
     return (
       <div>
         {mode === FORM.MODE_LIST &&
@@ -128,6 +147,8 @@ class Tournament extends Component {
             <Row style={{ marginTop: "25px" }}>
               <SmartTable
                 dataSource={tournamentsList}
+                pagination={pagination}
+                handleTableChange={this.handleTableChange}
                 emit={this.emit}
                 columns={columns}
                 rowKey="id"
@@ -149,11 +170,13 @@ class Tournament extends Component {
 
 Tournament.defaultProps = {
   tournamentsList: [],
+  pagination: {},
   refresh: false
 };
 
 Tournament.propTypes = {
   tournamentsList: PropTypes.array,
+  pagination: PropTypes.object,
   refreshList: PropTypes.func.isRequired,
   saveTournament: PropTypes.func.isRequired,
   updateTournament: PropTypes.func.isRequired,
