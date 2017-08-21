@@ -8,14 +8,11 @@ const TOURNAMENTS_URL = constructFromUrl("tournaments");
 
 export function fetchTournaments() {
   return dispatch => {
-    axios
-      .get(TOURNAMENTS_URL)
-      .then(tournaments => dispatch(receiveTournaments(tournaments.data.data)));
+    axios.get(TOURNAMENTS_URL).then(tournaments => {
+      dispatch(receiveTournaments(tournaments.data.data));
+      dispatch(refreshTournaments(false));
+    });
   };
-}
-
-export function receiveTournaments(tournamentsList) {
-  return { type: types.REQUEST_TOURNAMENTS, tournamentsList };
 }
 
 export function saveTournament(tournament) {
@@ -24,7 +21,7 @@ export function saveTournament(tournament) {
       .post(TOURNAMENTS_URL, tournament)
       .then(response => {
         if (response.status === 200) {
-          dispatch(receiveTeournament(response.data.data));
+          dispatch(receiveTournament(response.data.data));
           notifications.showNotification(
             types.NOTIFY_SUCCESS,
             tournamentMsg.TITLE,
@@ -48,7 +45,7 @@ export function updateTournament(id, tournament) {
       .put(`${TOURNAMENTS_URL}/${id}`, tournament)
       .then(response => {
         if (response.status === 200) {
-          dispatch(receiveTeournament(response.data.data));
+          dispatch(receiveTournament(response.data.data));
           notifications.showNotification(
             types.NOTIFY_SUCCESS,
             tournamentMsg.TITLE,
@@ -67,13 +64,12 @@ export function updateTournament(id, tournament) {
 }
 
 export function deleteTournament(id) {
-  console.log("ID", id);
   return dispatch => {
     axios
       .delete(`${TOURNAMENTS_URL}/${id}`)
       .then(response => {
         if (response.status === 200) {
-          fetchTournaments(); // refresh list
+          dispatch(refreshTournaments(true));
           notifications.showNotification(
             types.NOTIFY_SUCCESS,
             tournamentMsg.TITLE,
@@ -91,6 +87,14 @@ export function deleteTournament(id) {
   };
 }
 
-export function receiveTeournament(tournaments) {
+function receiveTournament(tournaments) {
   return { type: types.RECEIVE_TOURNAMENT, tournament: tournaments[0] };
+}
+
+function receiveTournaments(tournamentsList) {
+  return { type: types.REQUEST_TOURNAMENTS, tournamentsList };
+}
+
+function refreshTournaments(refresh) {
+  return { type: types.REFRESH_TOURNAMENTS, refresh };
 }

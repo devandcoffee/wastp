@@ -41,7 +41,8 @@ class TournamentContainer extends Component {
 function mapStateToProps(state) {
   return {
     userInfo: state.authed.userInfo,
-    tournamentsList: state.tournaments.tournamentsList
+    tournamentsList: state.tournaments.tournamentsList,
+    refresh: state.tournaments.refresh
   };
 }
 

@@ -43,6 +43,12 @@ class Tournament extends Component {
     this.props.refreshList();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.refresh !== nextProps.refresh && nextProps.refresh) {
+      this.props.refreshList();
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const { mode } = this.state;
     if (prevState.mode !== mode) {
@@ -142,7 +148,8 @@ class Tournament extends Component {
 }
 
 Tournament.defaultProps = {
-  tournamentsList: []
+  tournamentsList: [],
+  refresh: false
 };
 
 Tournament.propTypes = {
@@ -150,7 +157,8 @@ Tournament.propTypes = {
   refreshList: PropTypes.func.isRequired,
   saveTournament: PropTypes.func.isRequired,
   updateTournament: PropTypes.func.isRequired,
-  deleteTournament: PropTypes.func.isRequired
+  deleteTournament: PropTypes.func.isRequired,
+  refresh: PropTypes.bool
 };
 
 export default Tournament;
