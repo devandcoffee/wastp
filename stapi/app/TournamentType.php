@@ -12,6 +12,6 @@ class TournamentType extends Model
 
     public function tournaments()
     {
-        $this->hasMany('App\Tournament');
+        return $this->hasMany('App\Tournament');
     }
 }

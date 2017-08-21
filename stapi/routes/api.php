@@ -25,5 +25,7 @@ Route::group(
         Route::resource('tournaments', 'TournamentController');
 
         Route::resource('teams', 'TeamController');
+
+        Route::resource('tournaments-types', 'TournamentTypeController');
     }
 );
