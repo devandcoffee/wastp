@@ -16,7 +16,8 @@ class TournamentTransformer extends TransformerAbstract
      */
     protected $availableIncludes = [
         'user',
-        'teams'
+        'teams',
+        'tournament_type',
     ];
 
     /**
@@ -29,7 +30,6 @@ class TournamentTransformer extends TransformerAbstract
         return [
             'id' => $tournament->id,
             'name' => $tournament->name,
-            'type' => $tournament->tournament_type->name,
             'description' => $tournament->description,
             'start_date' => $tournament->start_date,
             'amount_teams' => $tournament->amount_teams,
@@ -61,5 +61,19 @@ class TournamentTransformer extends TransformerAbstract
         $teams = $tournament->teams;
 
         return $this->collection($teams, new TeamTransformer, 'Teams');
+    }
+
+    /**
+     * Include Teams
+     *
+     * @param  $tournament
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeTournamentType(Tournament $tournament)
+    {
+        $tournamentType = $tournament->tournament_type;
+        //dd($tournamentType->id);
+
+        return $this->item($tournamentType, new TournamentTypeTransformer, 'Tournament Type');
     }
 }

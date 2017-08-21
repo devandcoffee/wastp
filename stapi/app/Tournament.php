@@ -10,7 +10,7 @@ class Tournament extends Model
 
     use SoftDeletes;
 
-    public $with = ['user', 'teams'];
+    public $with = ['user', 'teams', 'tournament_type'];
 
     protected $fillable = [
         'user_id',
