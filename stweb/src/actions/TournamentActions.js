@@ -66,6 +66,31 @@ export function updateTournament(id, tournament) {
   };
 }
 
+export function deleteTournament(id) {
+  console.log("ID", id);
+  return dispatch => {
+    axios
+      .delete(`${TOURNAMENTS_URL}/${id}`)
+      .then(response => {
+        if (response.status === 200) {
+          fetchTournaments(); // refresh list
+          notifications.showNotification(
+            types.NOTIFY_SUCCESS,
+            tournamentMsg.TITLE,
+            tournamentMsg.DELETED
+          );
+        }
+      })
+      .catch(error => {
+        notifications.showNotification(
+          types.NOTIFY_ERROR,
+          tournamentMsg.TITLE,
+          tournamentMsg.ERROR
+        );
+      });
+  };
+}
+
 export function receiveTeournament(tournaments) {
   return { type: types.RECEIVE_TOURNAMENT, tournament: tournaments[0] };
 }

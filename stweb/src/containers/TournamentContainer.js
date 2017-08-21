@@ -21,6 +21,10 @@ class TournamentContainer extends Component {
     this.props.actions.updateTournament(id, data);
   };
 
+  deleteTournament = id => {
+    this.props.actions.deleteTournament(id);
+  };
+
   render() {
     return (
       <Tournament
@@ -28,6 +32,7 @@ class TournamentContainer extends Component {
         refreshList={this.refreshList}
         saveTournament={this.saveTournament}
         updateTournament={this.updateTournament}
+        deleteTournament={this.deleteTournament}
       />
     );
   }

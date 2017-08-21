@@ -70,34 +70,18 @@ class Tournament extends Component {
   };
 
   showConfirm = id => {
-    // const { refreshList } = this;
-    // confirm({
-    //   title: "Do you want to delete this item?",
-    //   content: "When clicked the OK button, the tournament will be deleted.",
-    //   onOk() {
-    //     tournamentsApi
-    //       .remove(id)
-    //       .then(response => {
-    //         showNotification(
-    //           NOTIFICATIONS.NOTIFICATION_SUCCESS,
-    //           "Tournaments",
-    //           "Tournament deleted."
-    //         );
-    //         refreshList();
-    //       })
-    //       .catch(err => {
-    //         showNotification(
-    //           NOTIFICATIONS.NOTIFICATION_ERROR,
-    //           "Tournaments",
-    //           "There was an error while deleting the tournament."
-    //         );
-    //       });
-    //   },
-    //   onCancel() {}
-    // });
+    const { deleteTournament } = this.props;
+    confirm({
+      title: "Do you want to delete this item?",
+      content: "When clicked the OK button, the tournament will be deleted.",
+      onOk() {
+        deleteTournament(id);
+      },
+      onCancel() {}
+    });
   };
 
-  deleteTournament = id => {
+  requestConfirmation = id => {
     this.showConfirm(id);
   };
 
@@ -110,7 +94,7 @@ class Tournament extends Component {
         });
         break;
       case TABLE.REMOVE_RECORD:
-        this.deleteTournament(record.id);
+        this.requestConfirmation(record.id);
         break;
       case TABLE.SHOW_RECORD:
         this.setState({
@@ -165,7 +149,8 @@ Tournament.propTypes = {
   tournamentsList: PropTypes.array,
   refreshList: PropTypes.func.isRequired,
   saveTournament: PropTypes.func.isRequired,
-  updateTournament: PropTypes.func.isRequired
+  updateTournament: PropTypes.func.isRequired,
+  deleteTournament: PropTypes.func.isRequired
 };
 
 export default Tournament;
