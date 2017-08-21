@@ -67,7 +67,11 @@ class Tournament extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { mode } = this.state;
     if (prevState.mode !== mode) {
-      this.props.refreshList();
+      this.props.refreshList(
+        DEFAULT_PAGINATION,
+        DEFAULT_FILTERS,
+        DEFAULT_SORTERS
+      );
     }
   }
 
