@@ -42,6 +42,30 @@ export function saveTournament(tournament) {
   };
 }
 
+export function updateTournament(id, tournament) {
+  return dispatch => {
+    axios
+      .put(`${TOURNAMENTS_URL}/${id}`, tournament)
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(receiveTeournament(response.data.data));
+          notifications.showNotification(
+            types.NOTIFY_SUCCESS,
+            tournamentMsg.TITLE,
+            tournamentMsg.UPDATED
+          );
+        }
+      })
+      .catch(error => {
+        notifications.showNotification(
+          types.NOTIFY_ERROR,
+          tournamentMsg.TITLE,
+          tournamentMsg.ERROR
+        );
+      });
+  };
+}
+
 export function receiveTeournament(tournaments) {
   return { type: types.RECEIVE_TOURNAMENT, tournament: tournaments[0] };
 }

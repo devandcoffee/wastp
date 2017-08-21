@@ -20,28 +20,32 @@ class TournamentsForm extends Component {
   componentDidMount() {
     const { activeRecord, user_id } = this.props;
 
-    // all forms needs this field
+    // all forms need this field
     this.props.form.setFieldsValue({
       user_id: user_id
     });
 
     if (activeRecord) {
       this.props.form.setFieldsValue({
-        amount_teams: activeRecord.amount_teams,
-        description: activeRecord.description,
-        tournament_type_id: activeRecord.tournament_type_id,
-        id: activeRecord.id,
-        name: activeRecord.name,
-        start_date: moment(activeRecord.start_date)
+        amount_teams: activeRecord.attributes.amount_teams,
+        description: activeRecord.attributes.description,
+        tournament_type_id: activeRecord.attributes.tournament_type_id,
+        name: activeRecord.attributes.name,
+        start_date: moment(activeRecord.attributes.start_date)
       });
     }
+
+    this.state = {
+      id: activeRecord ? activeRecord.id : null
+    };
   }
 
   handleSubmit = e => {
     e.preventDefault();
+    const { id } = this.state;
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.saveTournament(values);
+        this.props.saveTournament(values, id);
       }
     });
   };
@@ -64,14 +68,6 @@ class TournamentsForm extends Component {
           >
             <Form layout="vertical" onSubmit={this.handleSubmit}>
               <Col style={{ display: "none" }}>
-                <FormItem label="id">
-                  {getFieldDecorator("id")(
-                    <Input
-                      placeholder="id"
-                      disabled={viewMode === FORM.MODE_DETAIL}
-                    />
-                  )}
-                </FormItem>
                 <FormItem label="user_id">
                   {getFieldDecorator("user_id")(
                     <Input

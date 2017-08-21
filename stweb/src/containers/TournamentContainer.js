@@ -17,12 +17,17 @@ class TournamentContainer extends Component {
     this.props.actions.saveTournament(data);
   };
 
+  updateTournament = (id, data) => {
+    this.props.actions.updateTournament(id, data);
+  };
+
   render() {
     return (
       <Tournament
         {...this.props}
         refreshList={this.refreshList}
         saveTournament={this.saveTournament}
+        updateTournament={this.updateTournament}
       />
     );
   }

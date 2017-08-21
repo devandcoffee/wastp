@@ -58,10 +58,14 @@ class Tournament extends Component {
     this.setState({ mode: FORM.MODE_LIST });
   };
 
-  saveTournament = data => {
+  saveTournament = (data, id) => {
     const { mode } = this.state;
     if (mode === FORM.MODE_ADD) {
       this.props.saveTournament(data);
+    }
+
+    if (mode === FORM.MODE_EDIT) {
+      this.props.updateTournament(id, data);
     }
   };
 
@@ -102,7 +106,7 @@ class Tournament extends Component {
       case TABLE.EDIT_RECORD:
         this.setState({
           mode: FORM.MODE_EDIT,
-          activeRecord: record.attributes
+          activeRecord: record
         });
         break;
       case TABLE.REMOVE_RECORD:
@@ -111,7 +115,7 @@ class Tournament extends Component {
       case TABLE.SHOW_RECORD:
         this.setState({
           mode: FORM.MODE_DETAIL,
-          activeRecord: record.attributes
+          activeRecord: record
         });
         break;
       default:
@@ -160,7 +164,8 @@ Tournament.defaultProps = {
 Tournament.propTypes = {
   tournamentsList: PropTypes.array,
   refreshList: PropTypes.func.isRequired,
-  saveTournament: PropTypes.func.isRequired
+  saveTournament: PropTypes.func.isRequired,
+  updateTournament: PropTypes.func.isRequired
 };
 
 export default Tournament;
