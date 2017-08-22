@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Carbon\Carbon;
+use App\TournamentType;
 
 class TournamentsTypesTableSeeder extends Seeder
 {
@@ -12,17 +12,13 @@ class TournamentsTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('tournaments_types')->insert([
-            [
-                'name' => 'league',
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name' => 'cup',
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ],
-        ]);
+        $data = [
+            ['name' => 'league'],
+            ['name' => 'cup']
+        ];
+
+        foreach ($data as $tournamentType) {
+            TournamentType::create($tournamentType);
+        }
     }
 }

@@ -72,7 +72,6 @@ class TournamentTransformer extends TransformerAbstract
     public function includeTournamentType(Tournament $tournament)
     {
         $tournamentType = $tournament->tournament_type;
-        //dd($tournamentType->id);
 
         return $this->item($tournamentType, new TournamentTypeTransformer, 'Tournament Type');
     }
