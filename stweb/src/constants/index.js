@@ -1,4 +1,4 @@
-import * as FORM from './form';
-import * as TABLE from './table';
+import * as FORM from "./Form";
+import * as TABLE from "./Table";
 
-export { FORM, TABLE }
+export { FORM, TABLE };
