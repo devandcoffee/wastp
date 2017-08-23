@@ -20,10 +20,20 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(
     ['prefix' => 'v1'],
     function () {
-        Route::resource('users', 'UserController');
+        Route::resource('users', 'UserController', ['except' => [
+            'create', 'edit',
+        ]]);
 
-        Route::resource('tournaments', 'TournamentController');
+        Route::resource('tournaments', 'TournamentController', ['except' => [
+            'create', 'edit',
+        ]]);
 
-        Route::resource('teams', 'TeamController');
+        Route::resource('teams', 'TeamController', ['except' => [
+            'create', 'edit',
+        ]]);
+
+        Route::resource('tournaments-types', 'TournamentTypeController', ['only' => [
+            'index', 'show',
+        ]]);
     }
 );

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\TournamentType;
 
 class TournamentsTypesTableSeeder extends Seeder
 {
@@ -11,9 +12,13 @@ class TournamentsTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('tournaments_types')->insert([
+        $data = [
             ['name' => 'league'],
-            ['name' => 'cup'],
-        ]);
+            ['name' => 'cup']
+        ];
+
+        foreach ($data as $tournamentType) {
+            TournamentType::create($tournamentType);
+        }
     }
 }
